@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora FIAP & Cia</title>
+</head>
+<body>
+    <h1>Teste</h1>
+    <label>Número 1: <input type="number" id="numero1"></label>
+    <label>Número 2: <input type="number" id="numero2"></label>
+    <select id="operacao">
+        <option value="somar">Somar</option>
+        <option value="subtrair">Subtrair</option>
+        <option value="multiplicar">Multiplicar</option>
+        <option value="dividir">Dividir</option>
+    </select>
+    <button onclick="calcular()">Calcular</button>
+    <label>Resultado: <input id="resultado" readonly></label>
+
+    <script>
+        async function calcular() {
+            const a = document.getElementById("numero1").value;
+            const b = document.getElementById("numero2").value;
+            const op = document.getElementById("operacao").value;
+            const campo = document.getElementById("resultado");
+
+            const url = `/calculadora/${op}?a=${a}&b=${b}`
+            const resultado = await fetch(url)
+            if (resultado.ok){
+                campo.value = await resultado.text()
+            }else{
+                campo.value = "Erro ao executar a operação"
+            }
+        }
+    </script>
+</body>
+</html>
